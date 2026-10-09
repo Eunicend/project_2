@@ -88,7 +88,7 @@ body2 {
 
 .resource-list li {
   padding: 18px 0;
-  border-top: 1px solid darkgreen;
+  border-top: 1px solid whitesmoke;
 }
 
 .resource-list p {
@@ -104,7 +104,7 @@ body2 {
 
 
 a {
-  color: lightsteelblue;
+  color: darkgreen;
   text-underline-offset: 0.18em;
 }
 
@@ -128,8 +128,6 @@ a {
   font-weight: bold;
   text-transform: uppercase;
 }
-
-
 
 h4 {
   text-align: center;
