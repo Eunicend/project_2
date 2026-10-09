@@ -36,8 +36,9 @@ nav a {
     border-radius: 8px;
 }
 
-/*this is thecode i used to change the color of the background and text so it's more visually appealing WS */
+/*this is thecode i used to change the color of the background and text so it's more visually appealing. Also added padding so there is space where text starts WS */
 body {
     background-color: #f7efe5;
     color: #3f6b4f;
+    padding: 0 40px;
 }
