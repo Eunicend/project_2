@@ -95,3 +95,111 @@ body2 {
   margin: 0 0 6px;
   color: darkgreen;
 }
+
+
+/* defaults for the resource guide EN */
+* {
+  box-sizing: border-box;
+}
+
+
+a {
+  color: lightsteelblue;
+  text-underline-offset: 0.18em;
+}
+
+/* top banner and title area for the guide */
+.site-header {
+  border-bottom: 1px solid lightgray;
+  background: lightsteelblue;
+}
+
+.site-header > * {
+  max-width: 850px; 
+  margin-right: auto;
+  margin-left: auto; 
+}
+
+.guide-label {
+  margin-top: 0;
+  color: lightslategray;
+  font-family: Arial, sans-serif;
+  font-size: 0.78rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Heading styles */
+h1,
+h2,
+h3 {
+  color: darkolivegreen;
+  line-height: 1.25;
+}
+
+h1 {
+  max-width: 760px;
+  margin-top: 8px;
+  margin-bottom: 14px;
+  font-size: 2.8rem;
+  font-weight: normal;
+}
+
+.intro {
+  max-width: 700px;
+  margin-bottom: 0;
+  color: #50615b;
+  font-size: 1.15rem;
+}
+
+/* spacing of the guide sections. */
+.guide-content {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 0 24px 56px;
+}
+
+/* helps jump to the main sections of the guide for resource page EN*/
+.contents {
+  padding: 24px 0;
+  border-bottom: 1px solid whitesmoke;
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+}
+
+.contents h2 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.contents ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 28px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+/* I added this to create spacing and dividers between the guide's blocks in resource page EN*/
+.guide-section {
+  padding: 32px 0;
+  border-bottom: 1px solid whitesmoke;
+  scroll-margin-top: 20px;
+}
+
+.guide-section h2 {
+  margin: 0 0 14px;
+  font-size: 1.8rem;
+  font-weight: normal;
+}
+
+.guide-section h3 {
+  margin: 0 0 5px;
+  font-size: 1.2rem;
+}
+
+.guide-section p {
+  max-width: 760px;
+  margin: 0 0 16px;
+}
+
