@@ -1,0 +1,38 @@
+/*I added these styles to make the headings more visually appealing and consistent WS*/
+h1 {
+    text-align: center;
+    font-size: 40px;
+}
+
+h2 {
+    text-align: left;
+    font-size: 30px;
+    text-decoration: underline;
+    text-align: center;
+}
+/*this is the code i used to style the hero image, wanted it to be in a circle centered at the top of the page WS */
+.hero-image {
+    display: block;
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 20px auto;
+}
+
+/* Navigation buttons styling on homepage WS*/
+nav a {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: #3f6b4f;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+/*this is thecode i used to change the color of the background and text so it's more visually appealing WS */
+body {
+    background-color: #f7efe5;
+    color: #3f6b4f;
+}
