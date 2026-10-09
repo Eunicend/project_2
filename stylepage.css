@@ -53,3 +53,45 @@ body2 {
     padding-right: 70px;
     box-sizing: border-box;
 }
+
+/* I added this to make key words pop out EN */
+.terms {
+  margin: 18px 0 0;
+  display: grid;
+  gap: 14px;
+}
+
+.terms > div {
+  margin: 0;
+  padding: 14px 16px;
+  border-left: 3px solid lightsteelblue;
+  background: rgba(176, 196, 222, 0.12);
+}
+
+.terms dt {
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.terms dd {
+  margin: 0;
+  color: #465a54;
+}
+
+
+/* I added this to make the resource links look better EN */
+.resource-list {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resource-list li {
+  padding: 18px 0;
+  border-top: 1px solid whitesmoke;
+}
+
+.resource-list p {
+  margin: 0 0 6px;
+  color: darkgreen;
+}
