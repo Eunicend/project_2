@@ -97,7 +97,7 @@ body2 {
 }
 
 
-/* defaults for the resource guide EN */
+/* My default style for the resource guide EN */
 * {
   box-sizing: border-box;
 }
@@ -108,10 +108,10 @@ a {
   text-underline-offset: 0.18em;
 }
 
-/* top banner and title area for the guide */
+/* top banner and title area for the guide to be more visually appealing EN*/
 .site-header {
   border-bottom: 1px solid lightgray;
-  background: lightsteelblue;
+  background: rgb(194, 211, 233);
 }
 
 .site-header > * {
@@ -127,22 +127,6 @@ a {
   font-size: 0.78rem;
   font-weight: bold;
   text-transform: uppercase;
-}
-
-/* Heading styles */
-h1,
-h2,
-h3 {
-  color: darkolivegreen;
-  line-height: 1.25;
-}
-
-h1 {
-  max-width: 760px;
-  margin-top: 8px;
-  margin-bottom: 14px;
-  font-size: 2.8rem;
-  font-weight: normal;
 }
 
 .intro {
