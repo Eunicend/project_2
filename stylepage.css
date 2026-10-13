@@ -40,6 +40,14 @@ h3 {
   margin: 0 auto;
 }
 
+/* Homepage content width WS */
+.home-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px 56px;
+    box-sizing: border-box;
+}
+
 /* Matches the content width of the other pages WS */
 .about-content {
     max-width: 850px;
