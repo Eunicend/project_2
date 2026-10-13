@@ -25,7 +25,7 @@ h3 {
     margin: 20px auto;
 }
 
-/* reduces the width of the resources page WS */
+/* reduces the width of the tech hero page WS */
 .hero-content {
     max-width: 850px;
     margin: 0 auto;
@@ -36,6 +36,13 @@ h3 {
   width: 30%;
   height: 30%;
   margin: 0 auto;
+}
+
+/* Matches the content width of the other pages WS */
+.about-content {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 0 24px 56px;
 }
 
 /*added this to help with centering the nav elements SR*/
