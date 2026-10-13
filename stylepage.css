@@ -126,7 +126,7 @@ a {
 /* top banner and title area for the guide to be more visually appealing EN*/
 .site-header {
   border-bottom: 1px solid lightgray;
-  background: rgb(50, 104, 176);
+  background: rgb(180, 181, 186);
 }
 
 .site-header > * {
