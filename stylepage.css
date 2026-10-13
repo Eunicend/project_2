@@ -25,7 +25,7 @@ h3 {
     margin: 20px auto;
 }
 
-/* Reduce the width of the content area WS */
+/* reduces the width of the resources page WS */
 .hero-content {
     max-width: 850px;
     margin: 0 auto;
@@ -133,7 +133,7 @@ a {
 /* top banner and title area for the guide to be more visually appealing EN*/
 .site-header {
   border-bottom: 1px solid lightgray;
-  background: rgb(180, 181, 186);
+  background: rgb(194, 211, 233);
 }
 
 .site-header > * {
