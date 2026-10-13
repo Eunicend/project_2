@@ -25,6 +25,13 @@ h3 {
     margin: 20px auto;
 }
 
+/* Reduce the width of the content area WS */
+.hero-content {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
 .home-image {
   width: 30%;
   height: 30%;
