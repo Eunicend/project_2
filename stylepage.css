@@ -25,11 +25,25 @@ h3 {
     margin: 20px auto;
 }
 
+.home-image {
+  width: 30%;
+  height: 30%;
+  margin: 0 auto;
+}
+
+/*added this to help with centering the nav elements SR*/
+.center {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Navigation buttons styling on homepage WS*/
 nav a {
     display: inline-block;
     margin: 0 10px;
-    padding: 10px 20px;
+    padding: 10px 50px;
     background-color: #3f6b4f;
     color: white;
     text-decoration: none;
@@ -45,6 +59,7 @@ body {
     box-sizing: border-box;
 }
 
+/*Added to make sure there was a distinctive font size difference SR*/
 body2 {
     background-color: #f7efe5;
     color: #3f6b4f;
@@ -129,6 +144,7 @@ a {
   text-transform: uppercase;
 }
 
+/*Created last minute to fix h1 being used in two different ways SR*/
 h4 {
   text-align: center;
   color: darkolivegreen;
