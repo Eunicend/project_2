@@ -34,6 +34,7 @@ h3 {
     padding: 0 24px;
 }
 
+/* added this to adjust size of svg on home screen SP */
 .home-image {
   width: 30%;
   height: 30%;
@@ -65,6 +66,17 @@ h3 {
 
 /* Navigation buttons styling on homepage WS*/
 nav a {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 10px 50px;
+    background-color: #3f6b4f;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+/* Individual button styling for Machine Learning page SR*/
+button {
     display: inline-block;
     margin: 0 10px;
     padding: 10px 50px;
