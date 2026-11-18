@@ -105,6 +105,51 @@ body2 {
     box-sizing: border-box;
 }
 
+.machine-content {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 0 24px 56px;
+    font-size: 20px;
+}
+
+.machine-content .intro {
+    text-align: center;
+}
+
+.model-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.model-controls select {
+    min-height: 42px;
+    padding: 8px 12px;
+    border: 1px solid #3f6b4f;
+    border-radius: 8px;
+    color: #3f6b4f;
+    background-color: white;
+}
+
+.classification-output {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+#webcam-container canvas {
+    display: block;
+    max-width: 100%;
+}
+
+#label-container {
+    min-width: 220px;
+}
+
 /* I added this to make key words pop out EN */
 .terms {
   margin: 18px 0 0;
@@ -166,9 +211,9 @@ a {
 }
 
 .site-header > * {
-  max-width: 850px; 
+  max-width: 850px;
   margin-right: auto;
-  margin-left: auto; 
+  margin-left: auto;
 }
 
 .guide-label {

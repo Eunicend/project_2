@@ -5,178 +5,227 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Machine Learning Project</title>
-    <link rel='stylesheet' href='stylepage.css'>
+    <link rel="stylesheet" href="stylepage.css">
 </head>
+<body>
+    <header>
+        <h1>Our Machine Learning Project</h1>
+    </header>
 
-<h1>Our Machine Learning Project</h1>
+    <nav class="center" aria-label="Main navigation">
+        <a href="resources.html">Resources</a>
+        <a href="tech_heroes.html">Tech Heroes</a>
+        <a href="index.html">Home Page</a>
+        <a href="about_us.html">About Us</a>
+    </nav>
 
-<div class="center">
-<nav>
-    <a href="resources.html">Resources</a>  <a href="tech_heroes.html">Tech Heroes</a>  <a href="index.html">Home Page</a> <a href="index.html">About Us</a>
-</nav>
-</div>
+    <main class="machine-content">
+        <p class="intro">
+            Explore the image classification models created by our group using Google's Teachable Machine.
+        </p>
 
-<body2>
+        <section aria-labelledby="model-heading">
+            <h3 id="model-heading">Choose a Group Member's Model</h3>
+            <div class="model-controls">
+                <select id="model-select">
+                    <option value="member1">Eunice's Model</option>
+                    <option value="member2">Wilfred's Model</option>
+                    <option value="member3">Shengdong's Model</option>
+                </select>
 
-    <p>
-        Explore the image classification models
-        created by our group using Google's
-        Teachable Machine.
-    </p>
+                <button type="button" onclick="init()">Start Model</button>
+            </div>
+        </section>
 
-    <h3>Choose a Group Member's Model</h3>
-    <div class="center">
-    <select id="model-select">
-        <option value="member1">Eunice's Model</option>
-        <option value="member2">Wilfred's Model</option>
-        <option value="member3">Shengdong's Model</option>
-    </select>
-    
-    <button type="button" onclick="init()">
-        Start Model
-    </button>
-    </div>
-    <h3>Live Classification</h3>
-
-    <div id="webcam-container"></div>
-    <div id="label-container"></div>
+        <section aria-labelledby="classification-heading">
+            <h3 id="classification-heading">Live Classification</h3>
+            <div class="classification-output">
+                <div id="webcam-container"></div>
+                <div id="label-container" aria-live="polite"></div>
+            </div>
+        </section>
+    </main>
 
     <!-- TensorFlow and Teachable Machine libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.4/dist/teachablemachine-image.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8.6/dist/teachablemachine-pose.min.js"></script>
     <script>
         // =========================================
         // GROUP MEMBERS: ADD YOUR MODEL URL HERE
         // =========================================
 
-        const models = {
-            member1: {
-                name: "Eunice Ndoyi",
-                url: "https://teachablemachine.withgoogle.com/models/bNk1mDFS0/"
-            },
-
-            member2: {
-                name: "Wilfred Shereni",
-                url: "https://teachablemachine.withgoogle.com/models/Z5bYy_4QQ/"
-            },
-
-            member3: {
-                name: "Shengdong Ren",
-                url: "https://teachablemachine.withgoogle.com/models/gxRWVTOoC/"
-            }
-        };
-
-        
         // MACHINE LEARNING CODE
-        
 
-        let model;
-        let webcam;
-        let labelContainer;
-        let maxPredictions;
-        let animationId;
-        let loading = false;
+    const models = {
+        member1: {
+            name: "Eunice Ndoyi",
+            type: "image",
+            url: "https://teachablemachine.withgoogle.com/models/bNk1mDFS0/"
+        },
 
-        async function init() {
+        member2: {
+            name: "Wilfred Shereni",
+            type: "pose",
+            url: "https://teachablemachine.withgoogle.com/models/Z5bYy_4QQ/"
+        },
 
-            if (loading) return;
-            loading = true;
+        member3: {
+            name: "Shengdong Ren",
+            type: "image",
+            url: "https://teachablemachine.withgoogle.com/models/gxRWVTOoC/"
+        }
+    };
 
-            const selectedMember =
-                document.getElementById("model-select").value;
+// MACHINE LEARNING VARIABLES
 
-            const URL = models[selectedMember].url;
+let model;
+let webcam;
+let labelContainer;
+let maxPredictions;
+let animationId;
+let loading = false;
+let currentType;
 
-            if (!URL.startsWith(
-                "https://teachablemachine.withgoogle.com/models/"
-            )) {
-                alert("This member has not added their model yet.");
-                loading = false;
-                return;
-            }
+async function init() {
 
-            // Stop previous webcam session if switching models
+    if (loading) return;
+    loading = true;
+
+    try {
+        // Get selected member
+        const selectedMember =
+            document.getElementById("model-select").value;
+
+        const selectedModel = models[selectedMember];
+
+        const URL = selectedModel.url;
+        currentType = selectedModel.type;
+
+        // Stop previous session
+        if (animationId) {
+            cancelAnimationFrame(animationId);
+            animationId = null;
+        }
+
+        if (webcam) {
+            webcam.stop();
+            webcam = null;
+        }
+
+        document.getElementById("webcam-container").innerHTML = "";
+
+        labelContainer =
+            document.getElementById("label-container");
+
+        labelContainer.innerHTML = "";
+
+        // Load correct model
+        if (currentType === "image") {
+            model = await tmImage.load(
+                URL + "model.json",
+                URL + "metadata.json"
+            );
+        } else {
+            model = await tmPose.load(
+                URL + "model.json",
+                URL + "metadata.json"
+            );
+        }
+
+        maxPredictions = model.getTotalClasses();
+
+        // Setup webcam using the selected library
+        if (currentType === "image") {
+            webcam = new tmImage.Webcam(300, 300, true);
+        } else {
+            webcam = new tmPose.Webcam(300, 300, true);
+        }
+
+        await webcam.setup();
+        await webcam.play();
+
+        document.getElementById("webcam-container")
+            .appendChild(webcam.canvas);
+
+        // Create prediction labels
+        for (let i = 0; i < maxPredictions; i++) {
+            labelContainer.appendChild(
+                document.createElement("div")
+            );
+        }
+
+        animationId = requestAnimationFrame(loop);
+
+    } catch (error) {
+        console.error("Model error:", error);
+        alert("Unable to load the model or camera. Check the console.");
+    } finally {
+        loading = false;
+    }
+}
+
+// Continuous prediction loop
+    async function loop() {
+        if (!webcam || !model) return;
+
+        try {
+            webcam.update();
+            await predict();
+
+            animationId = requestAnimationFrame(loop);
+
+        } catch (error) {
+            console.error("Prediction loop error:", error);
+            alert("Prediction failed. Open the browser console to see the error.");
+
             if (animationId) {
                 cancelAnimationFrame(animationId);
                 animationId = null;
             }
-
-            if (webcam) {
-                await webcam.stop();
-                document.getElementById(
-                    "webcam-container"
-                ).innerHTML = "";
-            }
-
-            try {
-                // Load selected model
-                const modelURL = URL + "model.json";
-                const metadataURL = URL + "metadata.json";
-
-                model = await tmImage.load(
-                    modelURL,
-                    metadataURL
-                );
-
-                maxPredictions = model.getTotalClasses();
-
-                // Setup webcam
-                const flip = true;
-                webcam = new tmImage.Webcam(300, 300, flip);
-
-                await webcam.setup();
-                await webcam.play();
-
-                document.getElementById(
-                    "webcam-container"
-                ).appendChild(webcam.canvas);
-
-                // Clear old prediction labels
-                labelContainer =
-                    document.getElementById("label-container");
-
-                labelContainer.innerHTML = "";
-
-                for (let i = 0; i < maxPredictions; i++) {
-                    labelContainer.appendChild(
-                        document.createElement("div")
-                    );
-                }
-
-                animationId = requestAnimationFrame(loop);
-
-            } catch (error) {
-                console.error(error);
-                alert("Unable to load the model or camera.");
-            } finally {
-                loading = false;
-            }
         }
+    }
 
-        async function loop() {
-            webcam.update();
-            await predict();
-            animationId = requestAnimationFrame(loop);
-        }
+// Prediction function for both model types
 
-        async function predict() {
-            const prediction =
-                await model.predict(webcam.canvas);
+async function predict() {
 
-            for (let i = 0; i < maxPredictions; i++) {
+    let prediction;
 
-                const classPrediction =
-                    prediction[i].className + ": " +
-                    (prediction[i].probability * 100).toFixed(1) +
-                    "%";
+    if (currentType === "image") {
 
-                labelContainer.childNodes[i].textContent =
-                    classPrediction;
-            }
-        }
-    </script>
+        // Image classification
+        prediction = await model.predict(webcam.canvas);
 
-</body2>
-<nav> <a href="index.html">Back</a> </nav>
+    } else {
+
+        // Step 1: Estimate body pose
+        const { pose, posenetOutput } =
+            await model.estimatePose(webcam.canvas);
+
+        // Step 2: Classify estimated pose
+        prediction = await model.predict(posenetOutput);
+
+    }
+
+    // Display classification results
+    for (let i = 0; i < maxPredictions; i++) {
+
+        const classPrediction =
+            prediction[i].className + ": " +
+            (prediction[i].probability * 100).toFixed(1) +
+            "%";
+
+        labelContainer.childNodes[i].textContent =
+            classPrediction;
+    }
+}
+
+</script>
+    <footer class="center">
+        <nav aria-label="Footer navigation">
+            <a href="index.html">Back</a>
+        </nav>
+    </footer>
+</body>
 </html>
