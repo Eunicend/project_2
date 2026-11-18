@@ -102,18 +102,11 @@ async function init() {
         const URL = selectedModel.url;
         currentType = selectedModel.type;
 
-        // Stop previous session
+        // Stop the previous prediction loop but keep the camera stream active.
         if (animationId) {
             cancelAnimationFrame(animationId);
             animationId = null;
         }
-
-        if (webcam) {
-            webcam.stop();
-            webcam = null;
-        }
-
-        document.getElementById("webcam-container").innerHTML = "";
 
         labelContainer =
             document.getElementById("label-container");
@@ -135,18 +128,20 @@ async function init() {
 
         maxPredictions = model.getTotalClasses();
 
-        // Setup webcam using the selected library
-        if (currentType === "image") {
-            webcam = new tmImage.Webcam(300, 300, true);
-        } else {
-            webcam = new tmPose.Webcam(300, 300, true);
+        // Reuse the active camera when switching between models.
+        if (!webcam) {
+            if (currentType === "image") {
+                webcam = new tmImage.Webcam(300, 300, true);
+            } else {
+                webcam = new tmPose.Webcam(300, 300, true);
+            }
+
+            await webcam.setup();
+            await webcam.play();
+
+            document.getElementById("webcam-container")
+                .appendChild(webcam.canvas);
         }
-
-        await webcam.setup();
-        await webcam.play();
-
-        document.getElementById("webcam-container")
-            .appendChild(webcam.canvas);
 
         // Create prediction labels
         for (let i = 0; i < maxPredictions; i++) {
@@ -177,7 +172,6 @@ async function init() {
 
         } catch (error) {
             console.error("Prediction loop error:", error);
-            alert("Prediction failed. Open the browser console to see the error.");
 
             if (animationId) {
                 cancelAnimationFrame(animationId);
